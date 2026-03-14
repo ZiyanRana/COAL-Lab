@@ -1,30 +1,34 @@
 INCLUDE Irvine32.inc
 
 .data
-msg1 BYTE "Enter first number: ",0
-msg2 BYTE "Enter second number: ",0
-resultMsg BYTE "Sum = ",0
+msg BYTE "Enter number: ",0
+res BYTE "Factorial = ",0
+num DWORD ?
 
 .code
 main PROC
 
-    mov edx, OFFSET msg1
-    call WriteString
-    call ReadInt
-    mov ebx, eax
+	mov edx, OFFSET msg
+	call WriteString
+	call ReadInt
+	mov ecx, eax
 
-    mov edx, OFFSET msg2
-    call WriteString
-    call ReadInt
+	mov eax, 1
+	mov ebx, 1
 
-    add eax, ebx
+	
+		cmp ebx, ecx
+		jg Done
+		mul ebx
+		inc ebx
+		jmp L1
 
-    mov edx, OFFSET resultMsg
-    call WriteString
-    call WriteInt
-    call Crlf
+	Done:
+		mov edx, OFFSET res
+		call WriteString
+		call WriteInt
+		call Crlf
 
-    exit
+	exit
 main ENDP
-
 END main
